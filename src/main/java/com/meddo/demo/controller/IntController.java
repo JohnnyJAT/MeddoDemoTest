@@ -4,6 +4,7 @@ import com.meddo.demo.common.Constants;
 import com.meddo.demo.dto.IntReqRespDTO;
 import com.meddo.demo.service.IIntService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,8 @@ public class IntController {
                     produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<IntReqRespDTO> myMethod(@RequestBody IntReqRespDTO intReqRespDTO){
         List<Integer> result = intService.myTestMethod(intReqRespDTO);
-        return (ResponseEntity<IntReqRespDTO>) result;
+        IntReqRespDTO intReqRespDTO1 = new IntReqRespDTO();
+        intReqRespDTO1.setMyIntList(result);
+        return new ResponseEntity<>(intReqRespDTO1, HttpStatus.OK);
     }
 }
